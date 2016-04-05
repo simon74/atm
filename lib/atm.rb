@@ -8,7 +8,8 @@ class Atm
 	def withdraw(amount)
 		if amount % 5 == 0
 			@balance = @balance - amount	
-			true
+			# true
+			return ({status: true, bills: [10, 5]})
 		else
 			false
 		end

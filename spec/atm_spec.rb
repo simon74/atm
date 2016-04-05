@@ -1,4 +1,5 @@
 require './lib/atm.rb'
+
 describe Atm do
 	it 'has 1000$ on int.' do
 		expect(subject.balance).to eq 1000
@@ -9,8 +10,8 @@ describe Atm do
 		expect(subject.balance).to eq 995
 	end
 
-	it 'withdraw if amount is divisiable by 5' do
-		expect(subject.withdraw 5).to eq true
+	it 'expect withdraw of 15 to output bills array' do
+		expect(subject.withdraw(15)).to eq({status: true, bills: [10, 5]})
 	end
 
 	it 'reject if amount is not devisiable by 5' do
