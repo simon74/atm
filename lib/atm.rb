@@ -6,6 +6,11 @@ class Atm
 	end
 
 	def withdraw(amount)
-		@balance = @balance - amount
+		if amount % 5 == 0
+			@balance = @balance - amount	
+			true
+		else
+			false
+		end
 	end
 end

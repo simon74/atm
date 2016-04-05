@@ -8,4 +8,13 @@ describe Atm do
 		subject.withdraw 5
 		expect(subject.balance).to eq 995
 	end
+
+	it 'withdraw if amount is divisiable by 5' do
+		expect(subject.withdraw 5).to eq true
+	end
+
+	it 'reject if amount is not devisiable by 5' do
+		expect(subject.withdraw 6).to eq false
+	end
+
 end
