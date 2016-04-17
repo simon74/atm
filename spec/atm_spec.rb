@@ -4,7 +4,7 @@ describe Atm do
 	let(:account) {double(:account, pin: 1234, balance: 100)}
 
   it 'reject withdraw if account balance is too low' do
-  	expected_output ={ status: false, message: 'account balance too low', date: Date.today}
+  	expected_output ={ status: false, message: 'not sufficient funds in account', date: Date.today}
    		expect(subject.withdraw(150, 1234, account)).to eq expected_output
   end
 
