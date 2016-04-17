@@ -27,7 +27,7 @@ private
   end
 
   def card_expired(account)
-    # do_something
+    # set an expiry_date attribut on Account 
   end
 
   def pin_is_incorrect?(pin, account)
