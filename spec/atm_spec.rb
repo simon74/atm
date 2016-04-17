@@ -3,8 +3,13 @@ require './lib/atm.rb'
 describe Atm do
 	let(:account) {double(:account, pin: 1234, balance: 100)}
 
+  it 'reject withdraw if card is expired' do
+  	expected_output = { status: false, message: 'card expired', date: '2016-01-30'}
+  		expect(subject.withdraw(10, 1234, account)).to eq expected_output
+  end
+
   it 'reject withdraw if account balance is too low' do
-  	expected_output ={ status: false, message: 'not sufficient funds in account', date: Date.today}
+  	expected_output = { status: false, message: 'not sufficient funds in account', date: Date.today}
    		expect(subject.withdraw(150, 1234, account)).to eq expected_output
   end
 

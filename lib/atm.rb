@@ -14,6 +14,8 @@ def withdraw(amount, pin, account)
     return_message('wrong amount')
   when insufficient_funds_in_account?(amount, account) then 
     return_message('not sufficient funds in account')
+   when card_expired(account) then
+    return_message('card expired')
   else
     perform_transaction(amount, account)
   end
@@ -24,6 +26,9 @@ private
     amount > account.balance
   end
 
+  def card_expired(account)
+    # do_something
+  end
 
   def pin_is_incorrect?(pin, account)
     pin != account.pin
