@@ -1,7 +1,12 @@
 require './lib/atm.rb'
 
 describe Atm do
-	let(:account) {double(:account, pin: 1234)}
+	let(:account) {double(:account, pin: 1234, balance: 100)}
+
+  it 'reject withdraw if account balance is too low' do
+  	expected_output ={ status: false, message: 'account balance too low', date: Date.today}
+   		expect(subject.withdraw(150, 1234, account)).to eq expected_output
+  end
 
 	it 'has 1000$ on initializing.' do
 		expect(subject.balance).to eq 1000
@@ -26,7 +31,7 @@ describe Atm do
 		expect(subject.withdraw(5, 1233, account)).to eq expected_output
 	end
 
-	it 'returns at succeful withdraw' do
+	it 'returns at successful withdraw' do
 		expected_output = { status: true, message: 'success', date: Date.today, amount: 35, bills: [20,10,5]}
 		expect(subject.withdraw(35, 1234, account)).to eq expected_output
 	end
