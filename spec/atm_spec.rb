@@ -1,7 +1,24 @@
 require './lib/atm.rb'
 
 describe Atm do
-	let(:account) {double(:account, pin: 1234, balance: 100, expiry_date: '12/16')}
+	let(:account) {double(:account, pin: 1234, balance: 100, expiry_date: '12/16', status: :active)}
+
+  it 'allow withdraw if card status is active.' do
+
+  end
+
+  it 'reject if card status is cancelled.' do
+    allow(account).to receive(:status).and_return(:cancelled)
+  end
+
+  it 'has 1000$ on initializing.' do
+    expect(subject.balance).to eq 1000
+  end
+  
+  it 'balance is reduced at withdraw' do
+    subject.withdraw(5, 1234, account)
+    expect(subject.balance).to eq 995
+  end
 
   it 'reject withdraw if card is expired' do
   	#account.expiry_date = '12/15'
@@ -14,15 +31,6 @@ describe Atm do
   	expected_output = { status: false, message: 'not sufficient funds in account', date: Date.today}
    		expect(subject.withdraw(150, 1234, account)).to eq expected_output
   end
-
-	it 'has 1000$ on initializing.' do
-		expect(subject.balance).to eq 1000
-	end
-  
-	it 'balance is reduced at withdraw' do
-		subject.withdraw(5, 1234, account)
-		expect(subject.balance).to eq 995
-	end
 
 	xit 'expect withdraw of 15 to output bills array' do
 		expect(subject.add_bills(15)).to eq({status: true, bills: [10, 5]})
