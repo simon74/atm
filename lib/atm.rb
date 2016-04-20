@@ -27,7 +27,7 @@ private
   end
 
   def card_expired(account)
-    # set an expiry_date attribut on Account 
+    Date.strptime(account.expiry_date, '%m/%y') < Date.today
   end
 
   def pin_is_incorrect?(pin, account)
@@ -39,7 +39,7 @@ private
   end
 
   def return_message(message)
-    { status: false, message: message, date: Date.today}    
+    {status: false, message: message, date: Date.today}    
   end
 
   def perform_transaction(amount, account)
