@@ -10,18 +10,29 @@ def withdraw(amount, pin, account)
   case
   when pin_is_incorrect?(pin, account) then 
     return_message('wrong pin')
+  
   when amount_not_divisible_by_five?(amount) then 
     return_message('wrong amount')
+  
   when insufficient_funds_in_account?(amount, account) then 
     return_message('not sufficient funds in account')
-   when card_expired(account) then
+  
+  when card_expired(account) then
     return_message('card expired')
+  
+  when card_status(account, account_status) then
+    return_message('card is stolen or lost')
+
   else
     perform_transaction(amount, account)
   end
 end
 
 private
+  def card_status(account, account_status)
+    #something
+  end
+
   def insufficient_funds_in_account?(amount, account)
     amount > account.balance
   end

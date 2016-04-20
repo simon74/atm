@@ -1,14 +1,18 @@
 require './lib/atm.rb'
 
 describe Atm do
-	let(:account) {double(:account, pin: 1234, balance: 100, expiry_date: '12/16', status: :active)}
+	let(:account) {double(:account, pin: 1234, balance: 100, expiry_date: '12/16', account_status: :active)}
 
-  it 'allow withdraw if card status is active.' do
-
+  xit 'allow withdraw if card status is active.' do
+  	allow(account).to receive(:account_status).and_return(:active)
+  	expected_output = { status: true, message: 'card is active', account_status: :active}
+  	expect(subject.withdraw(10, 1234, account)).to eq expected_output
   end
 
-  it 'reject if card status is cancelled.' do
-    allow(account).to receive(:status).and_return(:cancelled)
+  it 'reject if card status is canceled.' do
+    allow(account).to receive(:account_status).and_return(:canceled)
+    expected_output = { status: false, message: 'card is stolen or lost', account_status: :canceled}
+  	expect(subject.withdraw(10, 1234, account)).to eq expected_output
   end
 
   it 'has 1000$ on initializing.' do
