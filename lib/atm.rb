@@ -17,10 +17,10 @@ def withdraw(amount, pin, account)
   when insufficient_funds_in_account?(amount, account) then 
     return_message('not sufficient funds in account')
   
-  when card_expired(account) then
+  when card_expired?(account) then
     return_message('card expired')
   
-  when card_status(account, account_status) then
+  when card_canceled?(account) then
     return_message('card is stolen or lost')
 
   else
@@ -29,15 +29,15 @@ def withdraw(amount, pin, account)
 end
 
 private
-  def card_status(account, account_status)
-    #something
+  def card_canceled?(account)
+    account.account_status == :canceled
   end
 
   def insufficient_funds_in_account?(amount, account)
     amount > account.balance
   end
 
-  def card_expired(account)
+  def card_expired?(account)
     Date.strptime(account.expiry_date, '%m/%y') < Date.today
   end
 
@@ -65,7 +65,7 @@ def add_bills(amount)
       amount = amount - bill 
       output << bill
     end
-    output
   end
+  output
  end
 end
