@@ -3,6 +3,11 @@ require './lib/atm.rb'
 describe Atm do
 	let(:account) {double(:account, pin: 1234, balance: 100, expiry_date: '12/16', account_status: :active)}
 
+  it 'Reject if withdraw amount is negative.' do
+    expected_output = { status: false, message: 'no negative amounts', date: Date.today}
+    expect(subject.withdraw(-10, 1234, account)).to eq expected_output
+  end
+
   it 'allow withdraw if card status is active.' do
     expected_output = { status: true, message: 'success', date: Date.today, amount: 45, bills: [20,20,5]}
     expect(subject.withdraw(45, 1234, account)).to eq expected_output

@@ -23,12 +23,18 @@ def withdraw(amount, pin, account)
   when card_canceled?(account) then
     return_message('card is stolen or lost')
 
+  when amount_negativ?(amount) then
+    return_message('no negative amounts')   
+
   else
     perform_transaction(amount, account)
   end
 end
 
 private
+  def amount_negativ?(amount)
+    amount < 0
+  end
   def card_canceled?(account)
     account.account_status == :canceled
   end
