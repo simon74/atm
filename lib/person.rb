@@ -3,6 +3,6 @@ class Person
 
 	def initialize(name, cash)
 		@cash = 0
-		@person = name
+		@name = 'Simon'
 	end
 end
