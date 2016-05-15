@@ -10,7 +10,8 @@ describe Account do
 	end
 
 	it 'has expiry date on initialize' do
-		expected_date = Date.today.next_year.strftime("%m/%y")
+		# expected_date = Date.today.next_year.strftime("%m/%y")
+		expected_date = Date.today.next_year(Account::STANDARD_VALIDITY_YRS).strftime('%m/%Y')
 		expect(subject.expiry_date).to eq expected_date
 	end
 
