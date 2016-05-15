@@ -1,7 +1,7 @@
 require './lib/account.rb'
 
-describe Account do 
-	let(:person) {double(:person, name: 'Simon')}
+describe Account do
+	let(:person) {double(:person, name: 'Simon', account_status: :active)}
 	subject {described_class.new(person)}
 
 	it 'generates a random pin on initialize' do
@@ -10,7 +10,6 @@ describe Account do
 	end
 
 	it 'has expiry date on initialize' do
-		# expected_date = Date.today.next_year.strftime("%m/%y")
 		expected_date = Date.today.next_year(Account::STANDARD_VALIDITY_YRS).strftime('%m/%Y')
 		expect(subject.expiry_date).to eq expected_date
 	end
@@ -28,5 +27,8 @@ describe Account do
 		expect(subject.owner).to eq person
 	end
 
-
+  it 'deactivates account using Class method' do
+    Account.deactivate(subject)
+    expect(subject.account_status).to eq :deactivated
+  end
 end
