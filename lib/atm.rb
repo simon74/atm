@@ -6,35 +6,36 @@ class Atm
     @balance = 1000
   end
 
-def withdraw(amount, pin, account)
-  case
-  when pin_is_incorrect?(pin, account) then
-    return_message('wrong pin')
+  def withdraw(amount, pin, account)
+    case
+    when pin_is_incorrect?(pin, account) then
+      return_message('wrong pin')
 
-  when amount_not_divisible_by_five?(amount) then
-    return_message('wrong amount')
+    when amount_not_divisible_by_five?(amount) then
+      return_message('wrong amount')
 
-  when insufficient_funds_in_account?(amount, account) then
-    return_message('not sufficient funds in account')
+    when insufficient_funds_in_account?(amount, account) then
+      return_message('not sufficient funds in account')
 
-  when card_expired?(account) then
-    return_message('card expired')
+    when card_expired?(account) then
+      return_message('card expired')
 
-  when card_deactivated?(account) then
-    return_message('card is deactivated')
+    when card_deactivated?(account) then
+      return_message('card is deactivated')
 
-  when amount_negativ?(amount) then
-    return_message('no negative amounts')
+    when amount_negativ?(amount) then
+      return_message('no negative amounts')
 
-  else
-    perform_transaction(amount, account)
+    else
+      perform_transaction(amount, account)
+    end
   end
-end
 
 private
   def amount_negativ?(amount)
     amount < 0
   end
+
   def card_deactivated?(account)
     account.account_status == :deactivated
   end

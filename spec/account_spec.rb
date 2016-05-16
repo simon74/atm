@@ -1,7 +1,7 @@
 require './lib/account.rb'
 
 describe Account do
-	let(:person) {double(:person, name: 'Simon', account_status: :active)}
+	let(:person) {double(:person, name: 'Simon')}
 	subject {described_class.new(person)}
 
 	it 'generates a random pin on initialize' do
