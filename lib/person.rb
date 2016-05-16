@@ -1,12 +1,17 @@
 require './lib/account'
 
 class Person
-	attr_accessor :name, :cash, :account
+  attr_accessor :name, :cash, :account
 
-	def initialize(name, cash)
-		@cash = 0
-		@name = 'Simon'
-		@account = nil
-	end
+  def initialize(options = {})
+    @cash = options[:cash]
+    @name = check_for_name(options)
+    @account = nil
+  end
+
+  private
+
+  def check_for_name(options)
+    options[:name] ? options[:name] : raise('A name is required')
+  end
 end
-
